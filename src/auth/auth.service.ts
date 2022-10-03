@@ -32,7 +32,11 @@ export class AuthService {
       });
 
       if (user) {
-        return { status: 400, message: '', responseData: { id: user.id } };
+        return {
+          status: 400,
+          message: '이미 가입된 이메일 주소에요',
+          responseData: { id: user.id },
+        };
       }
       const hashedPassword = crypto
         .createHash('sha256')
@@ -46,10 +50,14 @@ export class AuthService {
         password: hashedPassword,
       });
 
-      return { status: 200, message: '', responseData: { id: newUser.id } };
+      return {
+        status: 200,
+        message: '회원가입에 성공했어요',
+        responseData: { id: newUser.id },
+      };
     } catch (err) {
       console.log(err);
-      return err;
+      return { status: 500, message: '서버 에러가 발생했어요' };
     }
   }
 
@@ -59,7 +67,7 @@ export class AuthService {
         where: { email: loginDto.email },
       });
       if (!user) {
-        return { status: 400, message: '' };
+        return { status: 400, message: '가입되지 않은 이메일 주소에요' };
       }
 
       const hashedPassword = crypto
@@ -68,7 +76,7 @@ export class AuthService {
         .digest('hex');
 
       if (user.password !== hashedPassword) {
-        return { status: 400, message: '' };
+        return { status: 400, message: '비밀번호가 올바르지 않아요' };
       }
       const token = this.jwtService.sign(
         {
@@ -82,7 +90,7 @@ export class AuthService {
 
       return {
         status: 200,
-        message: '',
+        message: '로그인에 성공했어요',
         responseData: {
           token,
           user: {
@@ -98,7 +106,7 @@ export class AuthService {
     } catch (err) {
       console.log(err);
 
-      return { status: 500, message: err };
+      return { status: 500, message: '서버 에러가 발생했어요' };
     }
   }
 
@@ -110,7 +118,7 @@ export class AuthService {
         },
       });
       if (!user) {
-        return { status: 400, message: '' };
+        return { status: 400, message: '가입되지 않은 이메일 주소에요' };
       }
       const token = this.jwtService.sign(
         {
@@ -132,8 +140,14 @@ export class AuthService {
             <p>${process.env.FRONTEND_URL}/reset-password/${token}</p>
         `,
       });
-      return { status: 200, message: '', responseData: { token } };
-    } catch (err) {}
+      return {
+        status: 200,
+        message: '비밀번호 재설정 링크를 이메일로 보냈어요',
+        responseData: { token },
+      };
+    } catch (err) {
+      return { status: 500, message: '서버 에러가 발생했어요' };
+    }
   }
 
   async resetService(resetDto: ResetDto): Promise<ResponseDto<any>> {
@@ -141,7 +155,7 @@ export class AuthService {
       const decoded = this.jwtService.verify(resetDto.token);
 
       if (!decoded) {
-        return decoded;
+        return { status: 400, message: '유효하지 않은 토큰이에요' };
       }
 
       const user = this.usersModel.findOne({
@@ -149,7 +163,7 @@ export class AuthService {
       });
 
       if (!user) {
-        return { status: 400, message: '' };
+        return { status: 400, message: '가입되지 않은 이메일 주소에요' };
       }
 
       const hashedPassword = crypto
@@ -167,7 +181,11 @@ export class AuthService {
           },
         },
       );
-    } catch (err) {}
+
+      return { status: 200, message: '비밀번호를 재설정했어요' };
+    } catch (err) {
+      return { status: 500, message: '서버 에러가 발생했어요' };
+    }
   }
 
   async userService(token: string): Promise<ResponseDto<UserResDto>> {
@@ -175,7 +193,7 @@ export class AuthService {
       const decoded = this.jwtService.verify(token);
 
       if (!decoded) {
-        return { status: 401, message: '' };
+        return { status: 401, message: '유효하지 않은 토큰이에요' };
       }
 
       const user = await Users.findOne({
@@ -188,7 +206,7 @@ export class AuthService {
       });
       return {
         status: 200,
-        message: '',
+        message: '사용자 정보를 가져왔어요',
         responseData: {
           user: {
             id: user.id,
@@ -201,7 +219,7 @@ export class AuthService {
         },
       };
     } catch (err) {
-      return { status: 400, message: '' };
+      return { status: 400, message: '토큰이 만료되었어요' };
     }
   }
 }
