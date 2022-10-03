@@ -29,7 +29,7 @@ export class HardwareService {
     writeFileSync('../../hardware.json', jsonData);
     return {
       status: 200,
-      message: '',
+      message: '하드웨어 정보를 업데이트 했어요',
       responseData: {
         latitude: hardwareData.latitude,
         longitude: hardwareData.longitude,
@@ -53,13 +53,13 @@ export class HardwareService {
     if (minute > 10) {
       return {
         status: 200,
-        message: '',
+        message: '하드웨어 정보를 가져왔어요',
         responseData: { ...data, status: false },
       };
     }
     return {
       status: 200,
-      message: '',
+      message: '하드웨어 정보를 가져왔어요',
       responseData: { ...data, status: true },
     };
   }
@@ -78,7 +78,7 @@ export class HardwareService {
 
       return {
         status: 200,
-        message: '',
+        message: '센서 정보를 저장했어요',
         responseData: {
           id: newData.id,
           airHum: newData.airHum,
@@ -106,7 +106,7 @@ export class HardwareService {
       if (!sensor) return { status: 400, message: '' };
       return {
         status: 200,
-        message: '',
+        message: '센서 정보를 가져왔어요',
         responseData: {
           id: sensor.id,
           airHum: sensor.airHum,
@@ -138,7 +138,11 @@ export class HardwareService {
           updatedAt: value.updatedAt,
         };
       });
-      return { status: 200, message: '', responseData: sensors };
+      return {
+        status: 200,
+        message: '센서 정보를 가져왔어요',
+        responseData: sensors,
+      };
     } catch (err) {
       return { status: 500, message: '' };
     }
