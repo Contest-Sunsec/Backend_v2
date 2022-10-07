@@ -44,6 +44,34 @@ export class Sensor extends Model<Sensor> {
   @Column({ type: DataType.DOUBLE })
   solar!: number;
 
+  @AllowNull(false)
+  @Column({ type: DataType.DATE })
+  uptime: Date;
+
+  @AllowNull(false)
+  @Column({ type: DataType.DOUBLE })
+  latitude: number;
+
+  @AllowNull(false)
+  @Column({ type: DataType.DOUBLE })
+  longitude: number;
+
+  @AllowNull(false)
+  @Column({ type: DataType.INTEGER })
+  speed: number;
+
+  @AllowNull(false)
+  @Column({ type: DataType.INTEGER })
+  ping: number;
+
+  @AllowNull(false)
+  @Column({ type: DataType.DOUBLE })
+  bettery: number;
+
+  @AllowNull(false)
+  @Column({ type: DataType.BOOLEAN })
+  status: boolean;
+
   @CreatedAt
   @Column(DataType.DATE)
   createdAt!: Date;
@@ -51,5 +79,4 @@ export class Sensor extends Model<Sensor> {
   @UpdatedAt
   @Column(DataType.DATE)
   updatedAt!: Date;
-  bettery: number;
 }
