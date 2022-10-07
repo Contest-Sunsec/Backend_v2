@@ -34,6 +34,10 @@ export class Users extends Model<Users> {
   @Column(DataType.STRING)
   password!: string;
 
+  @AllowNull(true)
+  @Column(DataType.STRING)
+  hardwareId!: string;
+
   @CreatedAt
   @Column(DataType.DATE)
   createdAt!: Date;

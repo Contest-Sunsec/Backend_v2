@@ -9,12 +9,24 @@ export class HardwareDto {
   longitude: number;
   @ApiProperty()
   speed: number;
+  @ApiProperty()
+  ping: number;
 }
 
 export class HardwareResDto {
   uptime: Date;
   latitude: number;
   longitude: number;
-  spped: number;
+  speed: number;
+  ping: number;
+  status: boolean;
+}
+
+export class HardwareResClientDto {
+  uptime: Date;
+  position: string;
+  speed: number;
+  ping: number;
+  weather: object;
   status: boolean;
 }

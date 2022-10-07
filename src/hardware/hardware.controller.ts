@@ -32,6 +32,12 @@ export class HardwareController {
     return await this.hardwareService.getAllSensor();
   }
 
+  // @Get('score/:id')
+  // @ApiResponse({ type: ResponseDto })
+  // async getScore(@Param('id') id: string) {
+  //   return await this.hardwareService.getScore(id);
+  // }
+
   @Post('sensor')
   @ApiResponse({ type: ResponseDto })
   async postSensor(@Body() sensorDto: SensorDto) {

@@ -21,6 +21,9 @@ export class SensorDto {
 
   @ApiProperty()
   solar: number;
+
+  @ApiProperty()
+  bettery: number;
 }
 
 export class SensorResDto {
@@ -38,7 +41,5 @@ export class SensorResDto {
 
   solar: number;
 
-  createdAt: Date;
-
-  updatedAt: Date;
+  bettery: number;
 }

@@ -48,6 +48,7 @@ export class AuthService {
         name: registerDto.name,
         email: registerDto.email,
         password: hashedPassword,
+        hardwareId: registerDto.hardwareId,
       });
 
       return {
@@ -98,6 +99,7 @@ export class AuthService {
             email: user.email,
             name: user.name,
             password: user.password,
+            hardwareId: user.hardwareId,
             updatedAt: user.updatedAt,
             createdAt: user.createdAt,
           },
@@ -213,6 +215,7 @@ export class AuthService {
             email: user.email,
             name: user.name,
             password: user.password,
+            hardwareId: user.hardwareId,
             updatedAt: user.updatedAt,
             createdAt: user.createdAt,
           },

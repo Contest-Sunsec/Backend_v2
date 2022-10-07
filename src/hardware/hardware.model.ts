@@ -16,8 +16,7 @@ export class Sensor extends Model<Sensor> {
   @Unique(true)
   @PrimaryKey
   @Column({
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
+    type: DataType.STRING,
   })
   id!: string;
 
@@ -52,4 +51,5 @@ export class Sensor extends Model<Sensor> {
   @UpdatedAt
   @Column(DataType.DATE)
   updatedAt!: Date;
+  bettery: number;
 }
