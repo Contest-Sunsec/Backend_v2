@@ -74,6 +74,7 @@ export class SensorResClientDto {
   ping: number;
   bettery: number;
   status: boolean;
+  message: object;
   createdAt: Date;
   updatedAt: Date;
 }
