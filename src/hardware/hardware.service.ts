@@ -251,7 +251,7 @@ export class HardwareService {
       const score = 100 - Math.floor(count * (100 / 6));
       message.score = score;
 
-      switch (score / 10) {
+      switch (Math.floor(score / 10)) {
         case 10:
         case 9:
           message.scoreMessage = '좋은 점수에요!';
