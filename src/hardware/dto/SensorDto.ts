@@ -69,6 +69,8 @@ export class SensorResClientDto {
   solar: number;
   uptime: Date;
   position: string;
+  latitude: number;
+  longitude: number;
   weather: object;
   speed: number;
   ping: number;
