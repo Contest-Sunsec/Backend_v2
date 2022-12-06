@@ -1,13 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import axios from 'axios';
+import { InforSensor } from 'src/infor/infor.model';
 import { ResponseDto } from 'src/ResponseDto';
 import { SensorDto, SensorResDto, SensorResClientDto } from './dto/SensorDto';
 import { Sensor } from './hardware.model';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class HardwareService {
-  constructor(@InjectModel(Sensor) private sensorModel: typeof Sensor) {}
+  constructor(
+    @InjectModel(Sensor) private sensorModel: typeof Sensor,
+    @InjectModel(InforSensor) private inforModel: typeof InforSensor,
+  ) {}
   async postSensor(sensorDto: SensorDto): Promise<ResponseDto<SensorResDto>> {
     try {
       const [newData] = await this.sensorModel.upsert({
@@ -27,6 +32,17 @@ export class HardwareService {
         status: true,
       });
       console.log(newData);
+
+      await this.inforModel.create({
+        id: uuidv4(),
+        sensorId: sensorDto.id,
+        airHum: sensorDto.airHum,
+        airTemp: sensorDto.airTemp,
+        soilEc: sensorDto.soilEc,
+        soilHum: sensorDto.soilHum,
+        soilTemp: sensorDto.soilTemp,
+        solar: sensorDto.solar,
+      });
 
       return {
         status: 200,

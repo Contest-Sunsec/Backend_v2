@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Users } from './auth.models';
 import { ConfigService } from '@nestjs/config';
+import { Alert } from './alert.model';
 
 @Module({
   imports: [
@@ -13,9 +14,8 @@ import { ConfigService } from '@nestjs/config';
       useFactory: (config: ConfigService) => ({
         secret: config.get<string>('JWT_SECRET'),
       }),
-      // secret: process.env.JWT_SECRET,
     }),
-    SequelizeModule.forFeature([Users]),
+    SequelizeModule.forFeature([Users, Alert]),
   ],
   providers: [AuthService],
   controllers: [AuthController],

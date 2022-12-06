@@ -8,6 +8,9 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { Users } from './auth/auth.models';
 import { HardwareModule } from './hardware/hardware.module';
 import { Sensor } from './hardware/hardware.model';
+import { InforModule } from './infor/infor.module';
+import { Alert } from './auth/alert.model';
+import { InforSensor } from './infor/infor.model';
 
 @Module({
   imports: [
@@ -22,7 +25,7 @@ import { Sensor } from './hardware/hardware.model';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [Users, Sensor],
+      models: [Users, Sensor, Alert, InforSensor],
       autoLoadModels: true,
       synchronize: true,
     }),
@@ -36,6 +39,7 @@ import { Sensor } from './hardware/hardware.model';
       },
     }),
     HardwareModule,
+    InforModule,
   ],
   controllers: [AppController],
   providers: [AppService],

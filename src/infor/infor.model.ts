@@ -3,22 +3,22 @@ import {
   Column,
   CreatedAt,
   DataType,
-  HasMany,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
   Unique,
   UpdatedAt,
 } from 'sequelize-typescript';
-import { InforSensor } from 'src/infor/infor.model';
+import { Sensor } from 'src/hardware/hardware.model';
 
 @Table({ timestamps: true })
-export class Sensor extends Model<Sensor> {
+export class InforSensor extends Model<InforSensor> {
   @AllowNull(false)
   @Unique(true)
   @PrimaryKey
   @Column({
-    type: DataType.STRING,
+    type: DataType.UUID,
   })
   id!: string;
 
@@ -46,36 +46,9 @@ export class Sensor extends Model<Sensor> {
   @Column({ type: DataType.DOUBLE })
   solar!: number;
 
-  @AllowNull(false)
-  @Column({ type: DataType.DATE })
-  uptime: Date;
-
-  @AllowNull(false)
-  @Column({ type: DataType.DOUBLE })
-  latitude: number;
-
-  @AllowNull(false)
-  @Column({ type: DataType.DOUBLE })
-  longitude: number;
-
-  @AllowNull(false)
-  @Column({ type: DataType.INTEGER })
-  speed: number;
-
-  @AllowNull(false)
-  @Column({ type: DataType.INTEGER })
-  ping: number;
-
-  @AllowNull(false)
-  @Column({ type: DataType.DOUBLE })
-  bettery: number;
-
-  @AllowNull(false)
-  @Column({ type: DataType.BOOLEAN })
-  status: boolean;
-
-  @HasMany(() => InforSensor)
-  inforSensor!: InforSensor[];
+  @ForeignKey(() => Sensor)
+  @Column(DataType.STRING)
+  sensorId!: string;
 
   @CreatedAt
   @Column(DataType.DATE)
@@ -84,4 +57,5 @@ export class Sensor extends Model<Sensor> {
   @UpdatedAt
   @Column(DataType.DATE)
   updatedAt!: Date;
+  bettery: number;
 }

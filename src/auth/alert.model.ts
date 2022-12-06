@@ -3,17 +3,16 @@ import {
   Column,
   CreatedAt,
   DataType,
-  HasMany,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
   Unique,
-  UpdatedAt,
 } from 'sequelize-typescript';
-import { Alert } from './alert.model';
+import { Users } from './auth.models';
 
 @Table({ timestamps: true })
-export class Users extends Model<Users> {
+export class Alert extends Model<Alert> {
   @AllowNull(false)
   @Unique(true)
   @PrimaryKey
@@ -28,26 +27,14 @@ export class Users extends Model<Users> {
   name!: string;
 
   @AllowNull(false)
-  @Unique(true)
-  @Column(DataType.STRING)
-  email!: string;
+  @Column(DataType.BOOLEAN)
+  check!: boolean;
 
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  password!: string;
-
-  @AllowNull(true)
-  @Column(DataType.STRING)
-  hardwareId!: string;
-
-  @HasMany(() => Alert)
-  alerts!: Alert[];
+  @ForeignKey(() => Users)
+  @Column(DataType.UUID)
+  userId!: string;
 
   @CreatedAt
   @Column(DataType.DATE)
   createdAt!: Date;
-
-  @UpdatedAt
-  @Column(DataType.DATE)
-  updatedAt!: Date;
 }
