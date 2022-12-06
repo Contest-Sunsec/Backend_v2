@@ -18,6 +18,9 @@ export class InforController {
     @Query() query: any,
   ) {
     const data = this.jwtservice.verify(query.token);
+    if (!data) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
     const infor = await this.inforModel.findAll({
       where: {
         sensorId: data.sensorId,

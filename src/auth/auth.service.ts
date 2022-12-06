@@ -83,6 +83,7 @@ export class AuthService {
         {
           id: user.id,
           email: user.email,
+          sensorId: user.hardwareId,
         },
         {
           expiresIn: '2h',
@@ -126,6 +127,7 @@ export class AuthService {
         {
           id: user.id,
           email: user.email,
+          sensorId: user.hardwareId,
         },
         {
           expiresIn: '5m',

@@ -13,7 +13,7 @@ export class HardwareService {
     @InjectModel(Sensor) private sensorModel: typeof Sensor,
     @InjectModel(InforSensor) private inforModel: typeof InforSensor,
   ) {}
-  async postSensor(sensorDto: SensorDto): Promise<ResponseDto<SensorResDto>> {
+  async  postSensor(sensorDto: SensorDto): Promise<ResponseDto<SensorResDto>> {
     try {
       const [newData] = await this.sensorModel.upsert({
         id: sensorDto.id,
